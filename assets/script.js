@@ -23,9 +23,11 @@ const suivant = document.querySelectorAll('.arrow_right')[0];
 const precedent = document.querySelectorAll('.arrow_left')[0];
 const points = document.querySelectorAll('.dot');
 const sliderImage = document.querySelector('#slider-image');
+const textImage = document.querySelector('#text-image');
 let imageIndex = 0
 
-
+const dots = document.querySelectorAll ('.dot')
+	dots[0].classList.add('dot_selected')
 
 
 // premiere solution avec deux functions
@@ -59,6 +61,8 @@ function changeImage(direction) {
     }
 
     sliderImage.setAttribute("src", path + slides[imageIndex].image);
+	textImage.innerHTML = slides[imageIndex].tagLine
+	updateActivePoint(dots[imageIndex])
 }
 suivant.addEventListener('click', () => changeImage(1));
 precedent.addEventListener('click', () => changeImage(0));
@@ -74,9 +78,6 @@ function keyPressed(e) {
     }
 }
 
-//
-
-
 // Fonction pour changer l'image en fonction de l'index du point cliqué
 function changeImageByPoint(index) {
     imageIndex = index;
@@ -89,3 +90,12 @@ points.forEach((point, index) => {
         changeImageByPoint(index);
     });
 });
+
+
+function updateActivePoint(dot) {
+    dots.forEach((point) => {
+            point.classList.remove('dot_selected'); // Retirer la classe active
+        })
+	dot.classList.add('dot_selected')
+};
+
